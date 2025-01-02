@@ -4,9 +4,15 @@
 
 {% block content %}
 <h2>Services</h2>
-<ul>
-    {% for service in services %}
-    <li>{{ service.name }} - {{ service.category }}: {{ service.price }} USD</li>
+<form method="get" class="mb-3">
+    {{ filter.form.as_p }}
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<ul class="list-group">
+    {% for service in filter.qs %}
+    <li class="list-group-item">
+        <strong>{{ service.name }}</strong> - {{ service.category }}: {{ service.price }} USD
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}

@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Vehicle, Service, Order
+from .filters import VehicleFilter, ServiceFilter
 
 def home(request):
     return render(request, 'shipping/home.html')
 
 def vehicles_list(request):
-    vehicles = Vehicle.objects.all()
-    return render(request, 'shipping/vehicles_list.html', {'vehicles': vehicles})
+    # Применяем фильтрацию
+    vehicle_filter = VehicleFilter(request.GET, queryset=Vehicle.objects.all())
+    return render(request, 'shipping/vehicles_list.html', {'filter': vehicle_filter})
 
 def services_list(request):
-    services = Service.objects.all()
-    return render(request, 'shipping/services_list.html', {'services': services})
+    # Применяем фильтрацию
+    service_filter = ServiceFilter(request.GET, queryset=Service.objects.all())
+    return render(request, 'shipping/services_list.html', {'filter': service_filter})
 
 def driver_schedule(request):
     if request.user.is_authenticated and hasattr(request.user, 'driver'):
