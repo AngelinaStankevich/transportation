@@ -4,9 +4,15 @@
 
 {% block content %}
 <h2>Vehicles</h2>
-<ul>
-    {% for vehicle in vehicles %}
-    <li>{{ vehicle.name }} - {{ vehicle.vehicle_type.name }} ({{ vehicle.capacity }} tons)</li>
+<form method="get" class="mb-3">
+    {{ filter.form.as_p }}
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<ul class="list-group">
+    {% for vehicle in filter.qs %}
+    <li class="list-group-item">
+        <strong>{{ vehicle.name }}</strong> - {{ vehicle.vehicle_type.name }} ({{ vehicle.capacity }} tons)
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
