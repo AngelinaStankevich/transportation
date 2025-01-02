@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Driver Schedule{% endblock %}
+
+{% block content %}
+<h2>Your Schedule</h2>
+{% if orders %}
+<ul>
+    {% for order in orders %}
+    <li>{{ order.date }} - {{ order.client.name }} ({{ order.cargo_type.name }})</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No scheduled orders.</p>
+{% endif %}
+{% endblock %}

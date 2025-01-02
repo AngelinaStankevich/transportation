@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cargo Management{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Cargo Transportation System</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/vehicles/">Vehicles</a>
+            <a href="/services/">Services</a>
+            <a href="/schedule/">Schedule</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Cargo Management</p>
+    </footer>
+</body>
+</html>

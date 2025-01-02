@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Vehicles List{% endblock %}
+
+{% block content %}
+<h2>Vehicles</h2>
+<ul>
+    {% for vehicle in vehicles %}
+    <li>{{ vehicle.name }} - {{ vehicle.vehicle_type.name }} ({{ vehicle.capacity }} tons)</li>
+    {% endfor %}
+</ul>
+{% endblock %}
