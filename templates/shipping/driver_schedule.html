@@ -3,14 +3,16 @@
 {% block title %}Driver Schedule{% endblock %}
 
 {% block content %}
-<h2>Your Schedule</h2>
-{% if orders %}
-<ul>
-    {% for order in orders %}
-    <li>{{ order.date }} - {{ order.client.name }} ({{ order.cargo_type.name }})</li>
+<h2>Schedule</h2>
+<form method="get" class="mb-3">
+    {{ filter.form.as_p }}
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<ul class="list-group">
+    {% for order in filter.qs %}
+    <li class="list-group-item">
+        <strong>{{ order.date }}</strong> - {{ order.client.name }}: {{ order.status }}
+    </li>
     {% endfor %}
 </ul>
-{% else %}
-<p>No scheduled orders.</p>
-{% endif %}
 {% endblock %}
