@@ -1,0 +1,11 @@
+<h1>Orders</h1>
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Filter</button>
+</form>
+
+<ul>
+    {% for order in filter.qs %}
+        <li>{{ order }}</li>
+    {% endfor %}
+</ul>
