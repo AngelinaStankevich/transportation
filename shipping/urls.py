@@ -8,5 +8,6 @@ urlpatterns = [
     path('schedule/', views.driver_schedule, name='driver_schedule'),
     path('info/', views.public_info, name='public_info'),
     path('register-driver/', views.register_driver, name='register_driver'),
+    path('orders/', views.order_list, name='order_list'),
 
 ]
