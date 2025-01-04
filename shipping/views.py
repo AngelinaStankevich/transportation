@@ -78,3 +78,9 @@ def order_list(request):
 def driver_dashboard(request):
     orders = Order.objects.filter(driver=request.user.driver)
     return render(request, 'shipping/driver_dashboard.html', {'orders': orders})
+
+@login_required
+def driver_schedule(request):
+    orders = Order.objects.filter(driver__user=request.user)
+    filter = OrderFilter(request.GET, queryset=orders)
+    return render(request, 'shipping/driver_schedule.html', {'filter': filter})
