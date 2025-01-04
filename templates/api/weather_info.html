@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Weather Info{% endblock %}
+
+{% block content %}
+<h2>Weather Information</h2>
+<form method="get">
+    <label for="city">Enter city:</label>
+    <input type="text" name="city" id="city" value="{{ request.GET.city }}" required>
+    <button type="submit" class="btn btn-primary">Get Weather</button>
+</form>
+
+{% if weather.error %}
+    <p class="text-danger">{{ weather.error }}</p>
+{% else %}
+    <p><strong>City:</strong> {{ weather.city }}</p>
+    <p><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
+    <p><strong>Description:</strong> {{ weather.description }}</p>
+{% endif %}
+{% endblock %}

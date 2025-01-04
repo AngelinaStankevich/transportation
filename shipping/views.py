@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Vehicle, Service, Order, Driver
 from .filters import VehicleFilter, ServiceFilter, OrderFilter
 from .forms import DriverRegistrationForm, RegistrationForm
+from .api_utils import get_weather
 
 
 def home(request):
@@ -79,8 +80,32 @@ def driver_dashboard(request):
     orders = Order.objects.filter(driver=request.user.driver)
     return render(request, 'shipping/driver_dashboard.html', {'orders': orders})
 
+
 @login_required
 def driver_schedule(request):
     orders = Order.objects.filter(driver__user=request.user)
     filter = OrderFilter(request.GET, queryset=orders)
-    return render(request, 'shipping/driver_schedule.html', {'filter': filter})
+    return render(request, 'shipping/driver_schedule.html', {
+        'filter': filter
+    })
+
+
+from django.shortcuts import render
+from .api_utils import get_weather
+
+
+def weather_info(request):
+    city = request.GET.get('city', 'Moscow')  # По умолчанию Москва
+    weather = get_weather(city)
+
+    # Если погода не найдена или ошибка, то создается объект с ошибкой
+    if weather.get('error'):
+        weather_data = {'error': weather['error']}
+    else:
+        weather_data = {
+            'city': weather.get('city'),
+            'temperature': weather.get('temperature'),
+            'description': weather.get('description'),
+        }
+
+    return render(request, 'api/weather_info.html', {'weather': weather_data})

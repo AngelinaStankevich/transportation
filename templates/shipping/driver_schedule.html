@@ -11,7 +11,12 @@
 <ul class="list-group">
     {% for order in filter.qs %}
     <li class="list-group-item">
-        <strong>{{ order.date }}</strong> - {{ order.client.name }}: {{ order.status }}
+        <strong>Order Date:</strong> {{ order.date }}<br>
+        <strong>Client:</strong> {{ order.client.name }}<br>
+        <strong>Organization:</strong> {{ order.organization.name }}<br>
+        <strong>Cargo Type:</strong> {{ order.cargo_type.name }}<br>
+        <strong>Status:</strong> {{ order.status }}<br>
+        <strong>Cost:</strong> ${{ order.cost }}
     </li>
     {% endfor %}
 </ul>

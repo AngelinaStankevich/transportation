@@ -15,4 +15,5 @@ urlpatterns = [
     path('driver/', views.driver_dashboard, name='driver_dashboard'),
     path('login/', auth_views.LoginView.as_view(template_name='register/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('weather/', views.weather_info, name='weather_info')
 ]
