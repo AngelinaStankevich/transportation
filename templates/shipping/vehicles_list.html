@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Vehicles List{% endblock %}
 
@@ -10,8 +11,15 @@
 </form>
 <ul class="list-group">
     {% for vehicle in filter.qs %}
-    <li class="list-group-item">
-        <strong>{{ vehicle.name }}</strong> - {{ vehicle.vehicle_type.name }} ({{ vehicle.capacity }} tons)
+    <li class="list-group-item d-flex align-items-center">
+        {% if vehicle.image %}
+        <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="me-3" style="max-width: 100px; height: auto;">
+        {% else %}
+        <img src="{% static 'default_vehicle.jpg' %}" alt="No Image" class="me-3" style="max-width: 100px; height: auto;">
+        {% endif %}
+        <div>
+            <strong>{{ vehicle.name }}</strong> - {{ vehicle.vehicle_type.name }} ({{ vehicle.capacity }} tons)
+        </div>
     </li>
     {% endfor %}
 </ul>

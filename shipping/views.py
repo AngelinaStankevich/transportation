@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from .models import Vehicle, Service, Order, Driver
 from .filters import VehicleFilter, ServiceFilter, OrderFilter
 from .forms import DriverRegistrationForm, RegistrationForm
@@ -32,12 +33,12 @@ def driver_schedule(request):
 
 
 def public_info(request):
-    vehicles = VehicleFilter(request.GET, queryset=Vehicle.objects.all())
-    services = ServiceFilter(request.GET, queryset=Service.objects.all())
-    drivers = Driver.objects.all()  # Предположим, модель Driver существует
+    vehicles = Vehicle.objects.all()
+    services = Service.objects.all()
+    drivers = Driver.objects.all()
     return render(request, 'shipping/public_info.html', {
-        'vehicle_filter': vehicles,
-        'service_filter': services,
+        'vehicles': vehicles,
+        'services': services,
         'drivers': drivers,
     })
 
@@ -71,3 +72,9 @@ def order_list(request):
     orders = Order.objects.all()
     order_filter = OrderFilter(request.GET, queryset=orders)
     return render(request, 'orders/order_list.html', {'filter': order_filter})
+
+
+@login_required
+def driver_dashboard(request):
+    orders = Order.objects.filter(driver=request.user.driver)
+    return render(request, 'shipping/driver_dashboard.html', {'orders': orders})
