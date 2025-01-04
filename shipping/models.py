@@ -24,6 +24,7 @@ class Vehicle(models.Model):
     body_type = models.ForeignKey(BodyType, on_delete=models.CASCADE)
     license_plate = models.CharField(max_length=15, unique=True)
     capacity = models.FloatField(help_text="Capacity in tons")
+    image = models.ImageField(upload_to='vehicles/', blank=True, null=True, help_text="Upload an image of the vehicle")
 
     def __str__(self):
         return f"{self.name} ({self.license_plate})"
@@ -60,6 +61,7 @@ class Service(models.Model):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='services/', blank=True, null=True, help_text="Upload an image of the service")
 
     def __str__(self):
         return self.name
@@ -68,6 +70,7 @@ class Service(models.Model):
 class CargoType(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='cargo_types/', blank=True, null=True, help_text="Upload an image of the cargo type")
 
     def __str__(self):
         return self.name
@@ -82,8 +85,7 @@ class Order(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     date = models.DateTimeField()
     cost = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=100, choices=[('pending', 'Pending'), ('completed', 'Completed')],
-                              default='pending')
+    status = models.CharField(max_length=100, choices=[('pending', 'Pending'), ('completed', 'Completed')], default='pending')
 
     def __str__(self):
         return f"Order {self.id} for {self.client.name}"

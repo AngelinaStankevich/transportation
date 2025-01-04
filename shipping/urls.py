@@ -12,6 +12,7 @@ urlpatterns = [
     path('register-driver/', views.register_driver, name='register_driver'),
     path('orders/', views.order_list, name='order_list'),
     path('register/', views.register, name='register'),
+    path('driver/', views.driver_dashboard, name='driver_dashboard'),
     path('login/', auth_views.LoginView.as_view(template_name='register/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
 ]

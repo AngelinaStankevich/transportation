@@ -16,6 +16,7 @@
                 <a href="/vehicles/" class="btn btn-light btn-sm">Vehicles</a>
                 <a href="/services/" class="btn btn-light btn-sm">Services</a>
                 <a href="/schedule/" class="btn btn-light btn-sm">Schedule</a>
+                <a href="{% url 'public_info' %}" class="btn btn-light btn-sm">Info</a>
             </nav>
             <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}

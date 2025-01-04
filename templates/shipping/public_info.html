@@ -3,40 +3,26 @@
 {% block title %}Public Info{% endblock %}
 
 {% block content %}
-<h2>Public Information</h2>
+<div class="container">
+    <h2>About Our Company</h2>
+    <p>We are a leading company in the field of cargo transportation. Our mission is to provide fast, reliable, and safe logistics solutions.</p>
 
-<h3>Vehicles</h3>
-<form method="get" class="mb-3">
-    {{ vehicle_filter.form.as_p }}
-    <button type="submit" class="btn btn-primary">Filter</button>
-</form>
-<ul class="list-group">
-    {% for vehicle in vehicle_filter.qs %}
-    <li class="list-group-item">
-        <strong>{{ vehicle.name }}</strong> - {{ vehicle.vehicle_type.name }}
-    </li>
-    {% endfor %}
-</ul>
+    <h3>Our Services</h3>
+    <ul>
+        <li>Freight transportation</li>
+        <li>Logistics consulting</li>
+        <li>Specialized vehicle rentals</li>
+    </ul>
 
-<h3>Services</h3>
-<form method="get" class="mb-3">
-    {{ service_filter.form.as_p }}
-    <button type="submit" class="btn btn-primary">Filter</button>
-</form>
-<ul class="list-group">
-    {% for service in service_filter.qs %}
-    <li class="list-group-item">
-        <strong>{{ service.name }}</strong> - {{ service.price }} USD
-    </li>
-    {% endfor %}
-</ul>
+    <h3>Vehicle Types</h3>
+    <ul>
+        <li>Trucks with different capacities</li>
+        <li>Refrigerated vehicles</li>
+        <li>Flatbed trailers</li>
+    </ul>
 
-<h3>Drivers</h3>
-<ul class="list-group">
-    {% for driver in drivers %}
-    <li class="list-group-item">
-        <strong>{{ driver.name }}</strong> - Age: {{ driver.age }}
-    </li>
-    {% endfor %}
-</ul>
+    <h3>Contact Us</h3>
+    <p>Email: support@cargo-management.com</p>
+    <p>Phone: +1-800-555-1234</p>
+</div>
 {% endblock %}

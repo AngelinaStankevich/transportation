@@ -1,0 +1,8 @@
+<h1>Driver Dashboard</h1>
+<p>Welcome, {{ user.driver.full_name }}</p>
+<h2>Your Schedule</h2>
+<ul>
+    {% for order in orders %}
+        <li>{{ order.date }}: {{ order.cargo_type.name }} ({{ order.status }})</li>
+    {% endfor %}
+</ul>
