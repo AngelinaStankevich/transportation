@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import login, authenticate
 from .models import Vehicle, Service, Order, Driver
 from .filters import VehicleFilter, ServiceFilter, OrderFilter
-from .forms import DriverRegistrationForm
+from .forms import DriverRegistrationForm, RegistrationForm
 
 
 def home(request):
@@ -50,6 +51,20 @@ def register_driver(request):
     else:
         form = DriverRegistrationForm()
     return render(request, 'shipping/register_driver.html', {'form': form})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)  # Автоматически авторизуем пользователя
+            return redirect('home')  # Перенаправление на главную страницу
+    else:
+        form = RegistrationForm()
+    return render(request, 'register/register.html', {'form': form})
 
 
 def order_list(request):
