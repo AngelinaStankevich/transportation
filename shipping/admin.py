@@ -35,4 +35,6 @@ class CargoTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('client', 'organization', 'driver', 'vehicle', 'cargo_type', 'service', 'date', 'cost')
+    list_display = ('id', 'client', 'organization', 'driver', 'vehicle', 'cargo_type', 'service', 'date', 'cost', 'status')
+    list_filter = ('status', 'date')
+    search_fields = ('client__name', 'organization__name', 'cargo_type__name')

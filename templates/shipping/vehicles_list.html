@@ -4,23 +4,46 @@
 {% block title %}Vehicles List{% endblock %}
 
 {% block content %}
-<h2>Vehicles</h2>
-<form method="get" class="mb-3">
-    {{ filter.form.as_p }}
-    <button type="submit" class="btn btn-primary">Filter</button>
-</form>
-<ul class="list-group">
-    {% for vehicle in filter.qs %}
-    <li class="list-group-item d-flex align-items-center">
-        {% if vehicle.image %}
-        <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="me-3" style="max-width: 100px; height: auto;">
-        {% else %}
-        <img src="{% static 'default_vehicle.jpg' %}" alt="No Image" class="me-3" style="max-width: 100px; height: auto;">
-        {% endif %}
-        <div>
-            <strong>{{ vehicle.name }}</strong> - {{ vehicle.vehicle_type.name }} ({{ vehicle.capacity }} tons)
+<div class="container py-4" style="background-color: #eef5ff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+    <h2 class="text-center text-primary mb-4" style="font-weight: bold;">Our Fleet of Vehicles</h2>
+
+    <form method="get" class="mb-4 d-flex justify-content-center align-items-center">
+        <div class="row g-2 w-75">
+            <div class="col-md-8">
+                {{ filter.form.as_p }}
+            </div>
+            <div class="col-md-4 text-center">
+                <button type="submit" class="btn btn-primary w-100">Filter Vehicles</button>
+            </div>
         </div>
-    </li>
-    {% endfor %}
-</ul>
+    </form>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for vehicle in filter.qs %}
+        <div class="col">
+            <div class="card shadow-sm h-100" style="border: 1px solid #007bff; border-radius: 10px; transition: transform 0.2s;">
+                {% if vehicle.image %}
+                <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="card-img-top" style="height: 200px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                {% else %}
+                <img src="{% static 'default_vehicle.jpg' %}" alt="No Image" class="card-img-top" style="height: 200px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title text-primary" style="font-weight: bold;">{{ vehicle.name }}</h5>
+                    <p class="card-text">
+                        <strong>Type:</strong> {{ vehicle.vehicle_type.name }}<br>
+                        <strong>Capacity:</strong> {{ vehicle.capacity }} tons
+                    </p>
+                </div>
+                <div class="card-footer text-center bg-light">
+                    <button class="btn btn-outline-primary btn-sm">View Details</button>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col text-center">
+            <p class="text-muted">No vehicles available. Try adjusting the filters.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

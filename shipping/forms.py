@@ -1,5 +1,5 @@
 from django import forms
-from .models import Driver, User
+from .models import Driver, User, Order
 
 
 class DriverRegistrationForm(forms.ModelForm):
@@ -24,3 +24,21 @@ class RegistrationForm(forms.ModelForm):
         if password != password_confirm:
             raise forms.ValidationError("Passwords do not match!")
         return cleaned_data
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = [
+            'client',
+            'organization',
+            'driver',
+            'vehicle',
+            'cargo_type',
+            'service',
+            'date',
+            'cost',
+            'status',
+        ]
+        widgets = {
+            'date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }

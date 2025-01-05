@@ -1,6 +1,20 @@
-<h1>Login</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-6 p-5" style="background-color: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+        <h1 class="text-center text-primary mb-4" style="font-weight: bold;">Login</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-block" style="font-weight: bold;">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

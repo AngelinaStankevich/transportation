@@ -1,8 +1,21 @@
-<h1>Driver Dashboard</h1>
-<p>Welcome, {{ user.driver.full_name }}</p>
-<h2>Your Schedule</h2>
-<ul>
-    {% for order in orders %}
-        <li>{{ order.date }}: {{ order.cargo_type.name }} ({{ order.status }})</li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block title %}Driver Dashboard{% endblock %}
+
+{% block content %}
+<h2>Driver Dashboard</h2>
+
+{% if orders %}
+    <ul>
+        {% for order in orders %}
+            <li>
+                <strong>Date:</strong> {{ order.date }}<br>
+                <strong>Client:</strong> {{ order.client.name }}<br>
+                <strong>Status:</strong> {{ order.status }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No orders available.</p>
+{% endif %}
+{% endblock %}
