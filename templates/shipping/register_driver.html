@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Register Driver{% endblock %}
+{% block title %}Register as Driver{% endblock %}
 
 {% block content %}
-<h2>Register Driver</h2>
+<h2>Register as a Driver</h2>
+
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

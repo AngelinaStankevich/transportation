@@ -1,11 +1,43 @@
-<h1>Orders</h1>
-<form method="get">
-    {{ filter.form.as_p }}
-    <button type="submit">Filter</button>
-</form>
+{% extends 'base.html' %}
 
-<ul>
-    {% for order in filter.qs %}
-        <li>{{ order }}</li>
-    {% endfor %}
-</ul>
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+<h2>Orders</h2>
+<a href="{% url 'order_create' %}" class="btn btn-primary mb-3">Create New Order</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Organization</th>
+            <th>Driver</th>
+            <th>Vehicle</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.client.name }}</td>
+            <td>{{ order.organization.name }}</td>
+            <td>{{ order.driver.name }}</td>
+            <td>{{ order.vehicle.name }}</td>
+            <td>{{ order.date }}</td>
+            <td>{{ order.status }}</td>
+            <td>
+                <a href="{% url 'order_update' order.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'order_delete' order.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">No orders available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

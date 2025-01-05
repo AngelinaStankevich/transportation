@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Vehicle, Service, Order, Driver
 from .filters import VehicleFilter, ServiceFilter, OrderFilter
-from .forms import DriverRegistrationForm, RegistrationForm
+from .forms import DriverRegistrationForm, RegistrationForm, OrderForm
 from .api_utils import get_weather
 
 
@@ -77,9 +77,11 @@ def order_list(request):
 
 @login_required
 def driver_dashboard(request):
-    orders = Order.objects.filter(driver=request.user.driver)
-    return render(request, 'shipping/driver_dashboard.html', {'orders': orders})
-
+    if hasattr(request.user, 'driver'):
+        orders = Order.objects.filter(driver=request.user.driver)
+        return render(request, 'shipping/driver_dashboard.html', {'orders': orders})
+    else:
+        return HttpResponse("You are not registered as a driver.")
 
 @login_required
 def driver_schedule(request):
@@ -88,10 +90,6 @@ def driver_schedule(request):
     return render(request, 'shipping/driver_schedule.html', {
         'filter': filter
     })
-
-
-from django.shortcuts import render
-from .api_utils import get_weather
 
 
 def weather_info(request):
@@ -109,3 +107,41 @@ def weather_info(request):
         }
 
     return render(request, 'api/weather_info.html', {'weather': weather_data})
+
+
+# Список заказов
+def order_list(request):
+    orders = Order.objects.all()
+    return render(request, 'orders/order_list.html', {'orders': orders})
+
+# Создание заказа
+
+def order_create(request):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('order_list')
+    else:
+        form = OrderForm()
+    return render(request, 'orders/order_form.html', {'form': form})
+
+# Обновление заказа
+def order_update(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('order_list')
+    else:
+        form = OrderForm(instance=order)
+    return render(request, 'orders/order_form.html', {'form': form})
+
+# Удаление заказа
+def order_delete(request, pk):
+    order = get_object_or_404(Order, pk=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('order_list')
+    return render(request, 'orders/order_confirm_delete.html', {'order': order})

@@ -1,28 +1,63 @@
 {% extends 'base.html' %}
 
-{% block title %}Public Info{% endblock %}
+{% block title %}About Us{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>About Our Company</h2>
-    <p>We are a leading company in the field of cargo transportation. Our mission is to provide fast, reliable, and safe logistics solutions.</p>
+<div class="container py-4" style="background: linear-gradient(135deg, #e0f7fa, #fffde7); border-radius: 10px;">
+    <!-- Заголовок секции -->
+    <h2 class="text-center text-primary mb-4" style="color: #00796b;">About Our Company</h2>
 
-    <h3>Our Services</h3>
-    <ul>
-        <li>Freight transportation</li>
-        <li>Logistics consulting</li>
-        <li>Specialized vehicle rentals</li>
+    <!-- Описание компании -->
+    <div class="mb-4 text-center">
+        <p class="lead" style="color: #4e342e;">
+            At <strong style="color: #00695c;">Cargo Management</strong>, we specialize in providing top-notch logistics and transportation services.
+            With a fleet of state-of-the-art vehicles and a team of skilled professionals,
+            we are committed to ensuring your cargo reaches its destination safely and on time.
+        </p>
+    </div>
+
+    <!-- Услуги компании -->
+    <h3 class="text-primary mt-4" style="color: #01579b;">Our Services</h3>
+    <ul class="list-group mb-4">
+        <li class="list-group-item" style="background-color: #e1f5fe; color: #004d40;">🌟 Freight transportation tailored to your needs</li>
+        <li class="list-group-item" style="background-color: #e1f5fe; color: #004d40;">📦 Comprehensive logistics consulting</li>
+        <li class="list-group-item" style="background-color: #e1f5fe; color: #004d40;">🚛 Specialized vehicle rentals for unique requirements</li>
     </ul>
 
-    <h3>Vehicle Types</h3>
-    <ul>
-        <li>Trucks with different capacities</li>
-        <li>Refrigerated vehicles</li>
-        <li>Flatbed trailers</li>
-    </ul>
+    <!-- Типы транспортных средств -->
+    <h3 class="text-primary mt-4" style="color: #004d40;">Vehicle Types</h3>
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+        <div class="col">
+            <div class="card h-100 text-center shadow" style="background-color: #ffecb3;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #6a1b9a;">Trucks</h5>
+                    <p class="card-text">Various capacities to meet diverse needs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 text-center shadow" style="background-color: #ffcdd2;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #c62828;">Refrigerated Vehicles</h5>
+                    <p class="card-text">Ideal for transporting perishable goods.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 text-center shadow" style="background-color: #c8e6c9;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #2e7d32;">Flatbed Trailers</h5>
+                    <p class="card-text">Perfect for oversized or heavy cargo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h3>Contact Us</h3>
-    <p>Email: support@cargo-management.com</p>
-    <p>Phone: +1-800-555-1234</p>
+    <!-- Контактная информация -->
+    <h3 class="text-primary mt-4" style="color: #00796b;">Contact Us</h3>
+    <div class="text-center" style="color: #37474f;">
+        <p><strong>Email:</strong> <a href="mailto:support@cargo-management.com" style="color: #0288d1;">support@cargo-management.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+375298886677" style="color: #0288d1;">+1-800-555-1234</a></p>
+    </div>
 </div>
 {% endblock %}

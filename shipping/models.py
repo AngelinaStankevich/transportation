@@ -31,10 +31,10 @@ class Vehicle(models.Model):
 
 
 class Driver(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='driver')
     full_name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    license_number = models.CharField(max_length=50, unique=True)
+    license_number = models.CharField(max_length=20, unique=True)
+    age = models.PositiveIntegerField()
 
     def __str__(self):
         return self.full_name
